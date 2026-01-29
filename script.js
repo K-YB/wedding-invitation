@@ -85,15 +85,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 5. Kakao Share
-    // NOTE: You must replace 'YOUR_JAVASCRIPT_KEY' with your actual key from Kakao Developers
     if (typeof Kakao !== 'undefined') {
         if (!Kakao.isInitialized()) {
-            Kakao.init('635e687146ef57ff226697a370bfd61a'); // 여기에 [JavaScript 키]를 넣어주세요
+            Kakao.init('635e687146ef57ff226697a370bfd61a');
         }
 
         const shareBtn = document.getElementById('btn-kakao-share');
         if (shareBtn) {
             shareBtn.addEventListener('click', () => {
+                // Use the exact lower-case URL that matches the Kakao "Web Domain" setting
+                const shareUrl = 'https://k-yb.github.io/wedding-invitation/';
+
                 try {
                     Kakao.Share.sendDefault({
                         objectType: 'feed',
@@ -101,31 +103,25 @@ document.addEventListener('DOMContentLoaded', () => {
                             title: '김영빈 ♥ 김도연 결혼합니다',
                             description: '2026년 9월 6일 일요일 오후 2시\n더 화이트 베일',
                             imageUrl:
-                                'https://K-YB.github.io/wedding-invitation/assets/images/b98f216b2e027.jpg',
+                                'https://k-yb.github.io/wedding-invitation/assets/images/b98f216b2e027.jpg',
                             link: {
-                                mobileWebUrl: window.location.href, // 현재 페이지 주소
-                                webUrl: window.location.href,
+                                mobileWebUrl: shareUrl,
+                                webUrl: shareUrl,
                             },
                         },
                         buttons: [
                             {
                                 title: '모바일 청첩장 보기',
                                 link: {
-                                    mobileWebUrl: window.location.href,
-                                    webUrl: window.location.href,
-                                },
-                            },
-                            {
-                                title: '오시는 길',
-                                link: {
-                                    mobileWebUrl: window.location.href + '#location',
-                                    webUrl: window.location.href + '#location',
+                                    mobileWebUrl: shareUrl,
+                                    webUrl: shareUrl,
                                 },
                             },
                         ],
                     });
                 } catch (err) {
-                    alert('카카오톡 공유 설정이 필요합니다. (API Key 확인)');
+                    console.error(err);
+                    alert('카카오톡 공유 도중 오류가 발생했습니다.');
                 }
             });
         }
