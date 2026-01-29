@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept 1: Magazine Editorial</title>
+    <style>
+        :root {
+            --bg-color: #f4f4f4;
+            --text-color: #111;
+            --accent-color: #ff4500;
+        }
+        body {
+            font-family: 'Times New Roman', serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        header {
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--text-color);
+        }
+        h1 {
+            font-size: 3rem;
+            line-height: 0.9;
+            text-transform: uppercase;
+            margin: 0;
+            letter-spacing: -1px;
+        }
+        .date {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+            font-family: sans-serif;
+        }
+        .hero-img {
+            width: 100%;
+            height: 500px;
+            background-color: #ddd;
+            background-image: url('https://placehold.co/600x800/333/fff?text=Magazine+Cover+Shot');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .overlay-text {
+            position: absolute;
+            bottom: -20px;
+            left: 20px;
+            background: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            transform: rotate(-2deg);
+        }
+        .content {
+            padding: 60px 20px;
+        }
+        .story {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+        .story::first-letter {
+            font-size: 3rem;
+            float: left;
+            margin-right: 10px;
+            line-height: 1;
+            font-weight: bold;
+        }
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .photo-item {
+            background-color: #ccc;
+            height: 200px;
+            background-image: url('https://placehold.co/400x400/555/fff?text=Couple');
+            background-size: cover;
+        }
+        .photo-item:nth-child(3) {
+            grid-column: span 2;
+            height: 300px;
+        }
+        .footer {
+            background: var(--text-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The<br>Wedding<br>Issue</h1>
+            <span class="date">2024. 10. 25</span>
+        </header>
+        
+        <div class="hero-img">
+            <div class="overlay-text">Chan-young & Ji-soo</div>
+        </div>
+
+        <div class="content">
+            <p class="story">
+                두 사람이 하나가 되는 특별한 날. 패션 잡지의 한 페이지처럼, 우리의 시작을 여러분께 알립니다. 
+                가장 아름다운 계절에, 가장 아름다운 모습으로 여러분을 초대합니다.
+            </p>
+
+            <div class="photo-grid">
+                <div class="photo-item"></div>
+                <div class="photo-item"></div>
+                <div class="photo-item"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h2>Save the Date</h2>
+            <p>서울 강남구 어떤 웨딩홀</p>
+        </div>
+    </div>
+</body>
+</html>

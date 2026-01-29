@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept 3: Modern Gallery</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #fff;
+            color: #333;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            border-left: 1px solid #eee;
+            border-right: 1px solid #eee;
+        }
+
+        nav {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .menu {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .frame {
+            padding: 10px;
+            border: 1px solid #eee;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .hero-img {
+            width: 300px;
+            height: 400px;
+            background-color: #f9f9f9;
+            background-image: url('https://placehold.co/600x800/f0f0f0/999?text=Gallery+Work+No.1');
+            background-size: cover;
+        }
+
+        .title {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+
+        .horizontal-scroll {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px;
+            gap: 20px;
+            background: #fafafa;
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .horizontal-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-item {
+            min-width: 250px;
+            height: 350px;
+            background-color: #ddd;
+            background-image: url('https://placehold.co/500x700/e0e0e0/888?text=Photo+Collection');
+            background-size: cover;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            font-size: 0.8rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 4px 8px;
+        }
+
+        .info {
+            padding: 60px 30px;
+            text-align: center;
+        }
+
+        .info-block {
+            margin-bottom: 40px;
+            border-left: 2px solid #333;
+            padding-left: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="logo">GALLERY WEDDING</div>
+            <div class="menu">≡</div>
+        </nav>
+
+        <section class="hero">
+            <div class="title">Exhibition</div>
+            <h1 class="subtitle">A Journey of Two</h1>
+            <br>
+            <div class="frame">
+                <div class="hero-img"></div>
+            </div>
+            <p style="font-size: 0.9rem; color: #666;">
+                2024. 10. 25 Fri 12:00 PM<br>
+                Grand Hall
+            </p>
+        </section>
+
+        <div class="title" style="padding: 0 20px;">Collections (Side Scroll)</div>
+        <section class="horizontal-scroll">
+            <div class="gallery-item">
+                <div class="caption">Chapter 1. First Meet</div>
+            </div>
+            <div class="gallery-item">
+                <div class="caption">Chapter 2. Dating</div>
+            </div>
+            <div class="gallery-item">
+                <div class="caption">Chapter 3. Proposal</div>
+            </div>
+        </section>
+
+        <section class="info">
+            <div class="info-block">
+                <strong>INVITATION</strong><br><br>
+                작품처럼 소중한 인연.<br>
+                갤러리를 거닐듯<br>
+                저희의 이야기를 감상해주세요.
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
