@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // NOTE: You must replace 'YOUR_JAVASCRIPT_KEY' with your actual key from Kakao Developers
     if (typeof Kakao !== 'undefined') {
         if (!Kakao.isInitialized()) {
-            Kakao.init('YOUR_JAVASCRIPT_KEY_HERE'); // 여기에 [JavaScript 키]를 넣어주세요
+            Kakao.init('635e687146ef57ff226697a370bfd61a'); // 여기에 [JavaScript 키]를 넣어주세요
         }
 
         const shareBtn = document.getElementById('btn-kakao-share');
