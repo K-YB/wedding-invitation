@@ -175,13 +175,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const geocoder = new kakao.maps.services.Geocoder();
             geocoder.addressSearch('서울 서초구 서초중앙로 14', function (result, status) {
                 if (status === kakao.maps.services.Status.OK) {
-                    const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                    const lat = result[0].y;
+                    const lng = result[0].x;
+                    const coords = new kakao.maps.LatLng(lat, lng);
                     map.setCenter(coords);
                     const marker = new kakao.maps.Marker({ map: map, position: coords });
                     const infowindow = new kakao.maps.InfoWindow({
                         content: '<div style="padding:6px 12px;font-size:13px;white-space:nowrap;">더 화이트 베일</div>',
                     });
                     infowindow.open(map, marker);
+
+                    // Open the "카카오맵" button at this pinned location instead of a bare search
+                    const kakaoBtn = document.querySelector('.btn-map.kakao');
+                    if (kakaoBtn) {
+                        kakaoBtn.href = 'https://map.kakao.com/link/map/더 화이트 베일,' + lat + ',' + lng;
+                    }
                 }
             });
         });
