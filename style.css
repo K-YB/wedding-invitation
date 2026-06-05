@@ -147,13 +147,12 @@ h3 {
     /* Negative margin to overlap slightly if needed, or just flow naturally */
 }
 
-.eng-title {
-    font-family: var(--font-eng);
-    font-size: 1rem;
-    color: var(--text-secondary);
-    margin-bottom: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+.marry {
+    font-family: var(--font-kor);
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    letter-spacing: 4px;
+    margin-bottom: 5px;
 }
 
 .names {
