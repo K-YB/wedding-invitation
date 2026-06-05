@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             title: '김영빈 ♥ 김도연 결혼합니다',
                             description: '2026년 9월 6일 일요일 오후 2시\n더 화이트 베일',
                             imageUrl:
-                                'https://k-yb.github.io/wedding-invitation/assets/images/b98f216b2e027.jpg',
+                                'https://k-yb.github.io/wedding-invitation/assets/images/share-thumbnail.jpg',
                             link: {
                                 mobileWebUrl: shareUrl,
                                 webUrl: shareUrl,
