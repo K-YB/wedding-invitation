@@ -30,36 +30,73 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Lightbox Gallery
+    // 3. Lightbox Gallery (prev/next + swipe + keyboard navigation)
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById("lightbox-img");
     const closeBtn = document.getElementsByClassName("close")[0];
+    const prevBtn = document.querySelector('.lb-prev');
+    const nextBtn = document.querySelector('.lb-next');
+    const counter = document.getElementById('lb-counter');
 
-    // Add click event to all gallery images
-    document.querySelectorAll('.gallery-item img').forEach(img => {
-        img.addEventListener('click', function () {
-            lightbox.style.display = "block";
-            lightboxImg.src = this.src;
-            // Disable scroll on body
-            document.body.style.overflow = "hidden";
-        });
-    });
+    const galleryImgs = Array.from(document.querySelectorAll('.gallery-item img'));
+    let currentIndex = 0;
 
-    // Close functionality
-    if (closeBtn) {
-        closeBtn.onclick = function () {
-            lightbox.style.display = "none";
-            document.body.style.overflow = "auto";
-        }
+    function showImage(index) {
+        // Wrap around at both ends
+        currentIndex = (index + galleryImgs.length) % galleryImgs.length;
+        lightboxImg.src = galleryImgs[currentIndex].src;
+        if (counter) counter.textContent = (currentIndex + 1) + ' / ' + galleryImgs.length;
+        lightbox.scrollTop = 0;
     }
 
-    // Close when clicking outside image
-    lightbox.addEventListener('click', function (e) {
-        if (e.target === lightbox) {
-            lightbox.style.display = "none";
-            document.body.style.overflow = "auto";
-        }
+    function openLightbox(index) {
+        showImage(index);
+        lightbox.style.display = "block";
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+        lightbox.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+
+    galleryImgs.forEach((img, i) => {
+        img.addEventListener('click', () => openLightbox(i));
     });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIndex - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIndex + 1); });
+
+    // Close when tapping the backdrop (not the image or arrows)
+    lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard navigation (desktop)
+    document.addEventListener('keydown', function (e) {
+        if (lightbox.style.display !== 'block') return;
+        if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+        else if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+        else if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Touch swipe navigation (mobile)
+    let touchStartX = 0;
+    let touchStartY = 0;
+    lightbox.addEventListener('touchstart', function (e) {
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartY = e.changedTouches[0].clientY;
+    }, { passive: true });
+    lightbox.addEventListener('touchend', function (e) {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        // Treat as a swipe only when the horizontal move dominates (lets tall photos scroll vertically)
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+            if (dx < 0) showImage(currentIndex + 1); // swipe left -> next
+            else showImage(currentIndex - 1);        // swipe right -> prev
+        }
+    }, { passive: true });
 
 
     // 4. Copy to Clipboard
