@@ -253,5 +253,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 bgm.pause();
             }
         });
+
+        // Don't keep playing in the background: pause when the page is hidden
+        // (tab/app switch, screen lock); resume on return unless the user paused.
+        let resumeOnVisible = false;
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                resumeOnVisible = !bgm.paused;
+                bgm.pause();
+            } else if (resumeOnVisible && !userPaused) {
+                tryPlay();
+            }
+        });
     }
 });
