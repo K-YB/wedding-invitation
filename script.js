@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Lightbox Gallery (prev/next + swipe + keyboard navigation)
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById("lightbox-img");
-    const closeBtn = document.getElementsByClassName("close")[0];
     const prevBtn = document.querySelector('.lb-prev');
     const nextBtn = document.querySelector('.lb-next');
     const counter = document.getElementById('lb-counter');
@@ -49,22 +48,42 @@ document.addEventListener('DOMContentLoaded', () => {
         lightbox.scrollTop = 0;
     }
 
+    // Pushing a history entry lets the mobile back button close the lightbox
+    // (instead of leaving the page), so a visible X button isn't needed.
+    let lightboxHistoryActive = false;
+
     function openLightbox(index) {
         showImage(index);
-        lightbox.style.display = "block";
+        lightbox.classList.add('open');
         document.body.style.overflow = "hidden";
+        if (!lightboxHistoryActive) {
+            history.pushState({ lightbox: true }, '');
+            lightboxHistoryActive = true;
+        }
     }
 
     function closeLightbox() {
-        lightbox.style.display = "none";
+        lightbox.classList.remove('open');
         document.body.style.overflow = "auto";
+        if (lightboxHistoryActive) {
+            lightboxHistoryActive = false;
+            history.back(); // pop the entry we pushed when opening
+        }
     }
+
+    // Browser/OS back button: close the lightbox rather than navigating away.
+    window.addEventListener('popstate', function () {
+        if (lightbox.classList.contains('open')) {
+            lightboxHistoryActive = false;
+            lightbox.classList.remove('open');
+            document.body.style.overflow = "auto";
+        }
+    });
 
     galleryImgs.forEach((img, i) => {
         img.addEventListener('click', () => openLightbox(i));
     });
 
-    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
     if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIndex - 1); });
     if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIndex + 1); });
 
@@ -75,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Keyboard navigation (desktop)
     document.addEventListener('keydown', function (e) {
-        if (lightbox.style.display !== 'block') return;
+        if (!lightbox.classList.contains('open')) return;
         if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
         else if (e.key === 'ArrowRight') showImage(currentIndex + 1);
         else if (e.key === 'Escape') closeLightbox();
@@ -199,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bgm = document.getElementById('bgm');
     const musicBtn = document.getElementById('music-toggle');
     if (bgm && musicBtn) {
+        bgm.volume = 0.5; // soften background music a bit
         let userPaused = false;
 
         const setUI = (playing) => {

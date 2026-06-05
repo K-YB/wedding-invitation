@@ -425,7 +425,6 @@ footer {
     display: none;
     position: fixed;
     z-index: 10000;
-    padding-top: 60px;
     left: 0;
     top: 0;
     width: 100%;
@@ -435,6 +434,11 @@ footer {
     /* White opacity backdrop */
 }
 
+.lightbox.open {
+    display: flex;
+    /* margin:auto on the image centers both axes and stays scroll-safe when tall */
+}
+
 .lightbox-content {
     margin: auto;
     display: block;
@@ -442,18 +446,6 @@ footer {
     max-width: 800px;
     border-radius: 4px;
     box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
-}
-
-.close {
-    position: fixed;
-    top: 15px;
-    right: 20px;
-    color: #333;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-    cursor: pointer;
-    z-index: 10001;
 }
 
 /* Lightbox prev/next navigation */
