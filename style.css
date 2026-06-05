@@ -194,8 +194,8 @@ h3 {
     margin-bottom: 20px;
     color: #444;
     font-size: 1.05rem;
-    white-space: pre-wrap;
-    /* keep breaks from HTML */
+    /* Line breaks come from <br> tags; no white-space: pre-wrap so source
+       indentation isn't rendered (which pushed centered text to the right). */
 }
 
 .parents-area {
