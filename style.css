@@ -262,6 +262,11 @@ h3 {
     overflow: hidden;
 }
 
+#map {
+    width: 100%;
+    height: 100%;
+}
+
 .map-buttons {
     display: flex;
     gap: 10px;

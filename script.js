@@ -163,4 +163,27 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    // 6. Kakao Map embed
+    const mapContainer = document.getElementById('map');
+    if (mapContainer && typeof kakao !== 'undefined' && kakao.maps) {
+        kakao.maps.load(function () {
+            const map = new kakao.maps.Map(mapContainer, {
+                center: new kakao.maps.LatLng(37.4923, 127.0292), // temporary; recentered after geocoding
+                level: 3,
+            });
+            const geocoder = new kakao.maps.services.Geocoder();
+            geocoder.addressSearch('서울 서초구 서초중앙로 14', function (result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                    map.setCenter(coords);
+                    const marker = new kakao.maps.Marker({ map: map, position: coords });
+                    const infowindow = new kakao.maps.InfoWindow({
+                        content: '<div style="padding:6px 12px;font-size:13px;white-space:nowrap;">더 화이트 베일</div>',
+                    });
+                    infowindow.open(map, marker);
+                }
+            });
+        });
+    }
 });
