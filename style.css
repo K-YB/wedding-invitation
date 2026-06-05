@@ -92,6 +92,48 @@ h3 {
     transform: translateY(0);
 }
 
+/* Background Music Button */
+.music-btn {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid var(--accent-color);
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    transition: opacity 0.4s ease;
+}
+
+.music-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.music-btn.playing svg {
+    animation: spin 4s linear infinite;
+}
+
+.music-btn.paused {
+    opacity: 0.5;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 /* Section Common */
 .section {
     padding: 60px 0;

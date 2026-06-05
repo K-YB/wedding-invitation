@@ -194,4 +194,44 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // 7. Background music toggle
+    const bgm = document.getElementById('bgm');
+    const musicBtn = document.getElementById('music-toggle');
+    if (bgm && musicBtn) {
+        let userPaused = false;
+
+        const setUI = (playing) => {
+            musicBtn.classList.toggle('playing', playing);
+            musicBtn.classList.toggle('paused', !playing);
+        };
+        const tryPlay = () => {
+            bgm.play().catch(() => setUI(false));
+        };
+
+        bgm.addEventListener('play', () => setUI(true));
+        bgm.addEventListener('pause', () => setUI(false));
+
+        // Attempt autoplay; browsers usually require a user gesture first.
+        tryPlay();
+
+        // Fallback: start on the first interaction, unless the user paused it.
+        const events = ['click', 'touchstart', 'scroll'];
+        const startOnce = () => {
+            if (!userPaused && bgm.paused) tryPlay();
+            events.forEach((ev) => document.removeEventListener(ev, startOnce));
+        };
+        events.forEach((ev) => document.addEventListener(ev, startOnce, { passive: true }));
+
+        musicBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (bgm.paused) {
+                userPaused = false;
+                tryPlay();
+            } else {
+                userPaused = true;
+                bgm.pause();
+            }
+        });
+    }
 });
