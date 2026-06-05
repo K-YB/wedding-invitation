@@ -189,6 +189,15 @@ h3 {
 }
 
 /* Invite Section */
+.invite-photo {
+    display: block;
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+    margin: 0 auto 35px;
+    border-radius: 8px;
+}
+
 .invite-body p {
     margin-bottom: 20px;
     color: #444;
