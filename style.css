@@ -92,11 +92,17 @@ h3 {
     transform: translateY(0);
 }
 
-/* Background Music Button */
-.music-btn {
+/* Top-right floating controls (share + music) */
+.top-controls {
     position: fixed;
     top: 16px;
     right: 16px;
+    z-index: 9000;
+    display: flex;
+    gap: 8px;
+}
+
+.top-btn {
     width: 40px;
     height: 40px;
     padding: 0;
@@ -108,14 +114,17 @@ h3 {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 9000;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
-    transition: opacity 0.4s ease;
+    transition: opacity 0.4s ease, background 0.3s ease;
 }
 
-.music-btn svg {
+.top-btn:hover {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.top-btn svg {
     width: 18px;
     height: 18px;
 }

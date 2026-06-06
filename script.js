@@ -146,41 +146,43 @@ document.addEventListener('DOMContentLoaded', () => {
             Kakao.init('635e687146ef57ff226697a370bfd61a');
         }
 
-        const shareBtn = document.getElementById('btn-kakao-share');
-        if (shareBtn) {
-            shareBtn.addEventListener('click', () => {
-                // Use the exact lower-case URL that matches the Kakao "Web Domain" setting
-                const shareUrl = 'https://k-yb.github.io/wedding-invitation/';
-
-                try {
-                    Kakao.Share.sendDefault({
-                        objectType: 'feed',
-                        content: {
-                            title: '김영빈 ♥ 김도연 결혼합니다',
-                            description: '2026년 9월 6일 일요일 오후 2시\n더 화이트 베일',
-                            imageUrl:
-                                'https://k-yb.github.io/wedding-invitation/assets/images/share-thumbnail.jpg',
+        // Use the exact lower-case URL that matches the Kakao "Web Domain" setting
+        const shareUrl = 'https://k-yb.github.io/wedding-invitation/';
+        const shareKakao = () => {
+            try {
+                Kakao.Share.sendDefault({
+                    objectType: 'feed',
+                    content: {
+                        title: '김영빈 ♥ 김도연 결혼합니다',
+                        description: '2026년 9월 6일 일요일 오후 2시\n더 화이트 베일',
+                        imageUrl:
+                            'https://k-yb.github.io/wedding-invitation/assets/images/share-thumbnail.jpg',
+                        link: {
+                            mobileWebUrl: shareUrl,
+                            webUrl: shareUrl,
+                        },
+                    },
+                    buttons: [
+                        {
+                            title: '모바일 청첩장 보기',
                             link: {
                                 mobileWebUrl: shareUrl,
                                 webUrl: shareUrl,
                             },
                         },
-                        buttons: [
-                            {
-                                title: '모바일 청첩장 보기',
-                                link: {
-                                    mobileWebUrl: shareUrl,
-                                    webUrl: shareUrl,
-                                },
-                            },
-                        ],
-                    });
-                } catch (err) {
-                    console.error(err);
-                    alert('카카오톡 공유 도중 오류가 발생했습니다.');
-                }
-            });
-        }
+                    ],
+                });
+            } catch (err) {
+                console.error(err);
+                alert('카카오톡 공유 도중 오류가 발생했습니다.');
+            }
+        };
+
+        // Bottom button + top-right floating button trigger the same share
+        ['btn-kakao-share', 'share-toggle'].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('click', shareKakao);
+        });
     }
 
     // 6. Kakao Map embed
