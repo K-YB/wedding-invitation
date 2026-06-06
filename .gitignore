@@ -1,3 +1,6 @@
 # High-res source photos (PNG originals) — not served on the site.
 # Only the web-optimized JPGs are committed.
 *.png
+
+# ...but keep the printable QR code for the paper invitation.
+!assets/qr-invitation.png
