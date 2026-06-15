@@ -1,30 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 0. Intro video: play the clip once (muted), then fade out. Tap to skip.
-    const introOverlay = document.getElementById('intro-overlay');
-    if (introOverlay) {
-        const introVideo = document.getElementById('intro-video');
-        let introDone = false;
-        const dismissIntro = () => {
-            if (introDone) return;
-            introDone = true;
-            introOverlay.classList.add('hide');
-            document.body.style.overflow = '';
-            setTimeout(() => introOverlay.remove(), 900);
-        };
-        document.body.style.overflow = 'hidden';
-        if (introVideo) {
-            introVideo.addEventListener('ended', dismissIntro);
-            introVideo.addEventListener('error', dismissIntro);
-            const playPromise = introVideo.play();
-            if (playPromise && playPromise.catch) playPromise.catch(() => setTimeout(dismissIntro, 400));
-        } else {
-            dismissIntro();
-        }
-        introOverlay.addEventListener('click', dismissIntro); // tap anywhere to skip
-        setTimeout(dismissIntro, 6000);                       // safety: never trap the user
-    }
-
     // 1. Scroll Animations (Intersection Observer)
     const observerOptions = {
         threshold: 0.1
