@@ -121,8 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Copy to Clipboard
     document.querySelectorAll('.btn-copy').forEach(btn => {
         btn.addEventListener('click', function () {
-            // Find the account number (previous sibling span)
-            const textToCopy = this.previousElementSibling.innerText;
+            // Prefer the exact account number from data-copy; fall back to sibling text
+            const textToCopy = this.dataset.copy || this.previousElementSibling.innerText;
 
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const originalText = this.innerText;

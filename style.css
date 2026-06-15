@@ -397,9 +397,10 @@ h3 {
 }
 
 .label {
-    font-size: 0.8rem;
-    color: #888;
-    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #555;
+    font-weight: 600;
+    margin-bottom: 12px;
 }
 
 .account-row {
@@ -410,6 +411,27 @@ h3 {
     font-size: 0.95rem;
 }
 
+.account-row + .account-row {
+    margin-top: 14px;
+}
+
+.account-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: left;
+}
+
+.account-name {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.account-bank {
+    color: #333;
+    letter-spacing: 0.3px;
+}
+
 .btn-copy {
     background: #fff;
     border: 1px solid #ccc;
@@ -417,6 +439,8 @@ h3 {
     border-radius: 4px;
     font-size: 0.8rem;
     cursor: pointer;
+    flex-shrink: 0;
+    margin-left: 12px;
 }
 
 /* Admin / Footer */
