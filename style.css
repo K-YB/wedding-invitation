@@ -295,8 +295,8 @@ h3 {
     transition: transform 0.5s;
 }
 
-/* Make some items full width for variety */
-.gallery-item:nth-child(3n) {
+/* Couple photos span the full width */
+.gallery-item.wide {
     flex-basis: 100%;
 }
 
