@@ -16,21 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
 
 
-    // 2. Accordion for Contact
-    const accordions = document.getElementsByClassName("accordion");
-    for (let i = 0; i < accordions.length; i++) {
-        accordions[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            const panel = this.nextElementSibling;
-            if (panel.style.maxHeight) {
-                panel.style.maxHeight = null;
-            } else {
-                panel.style.maxHeight = panel.scrollHeight + "px";
-            }
-        });
-    }
-
-    // 3. Lightbox Gallery (prev/next + swipe + keyboard navigation)
+    // 2. Lightbox Gallery (prev/next + swipe + keyboard navigation)
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById("lightbox-img");
     const prevBtn = document.querySelector('.lb-prev');
@@ -118,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
 
 
-    // 4. Copy to Clipboard
+    // 3. Copy to Clipboard
     document.querySelectorAll('.btn-copy').forEach(btn => {
         btn.addEventListener('click', function () {
             // Prefer the exact account number from data-copy; fall back to sibling text
@@ -140,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 5. Kakao Share
+    // 4. Kakao Share
     if (typeof Kakao !== 'undefined') {
         if (!Kakao.isInitialized()) {
             Kakao.init('635e687146ef57ff226697a370bfd61a');
@@ -185,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. Kakao Map embed
+    // 5. Kakao Map embed
     const mapContainer = document.getElementById('map');
     if (mapContainer && typeof kakao !== 'undefined' && kakao.maps) {
         kakao.maps.load(function () {
@@ -216,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 7. Background music toggle
+    // 6. Background music toggle
     const bgm = document.getElementById('bgm');
     const musicBtn = document.getElementById('music-toggle');
     if (bgm && musicBtn) {
