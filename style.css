@@ -295,8 +295,8 @@ h3 {
     transition: transform 0.5s;
 }
 
-/* Couple photos span the full width */
-.gallery-item.wide {
+/* Every 3rd item spans full width; photos are ordered so couple shots land here */
+.gallery-item:nth-child(3n) {
     flex-basis: 100%;
 }
 
