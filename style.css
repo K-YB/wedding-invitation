@@ -230,6 +230,90 @@ h3 {
     color: #222;
 }
 
+/* Calendar / D-Day Section */
+.cal-date {
+    font-family: var(--font-eng);
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.cal-time {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+}
+
+.calendar {
+    max-width: 300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    row-gap: 4px;
+    font-family: var(--font-sans);
+}
+
+.cal-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.cal-dow {
+    font-size: 0.78rem;
+    color: #aaa;
+    margin-bottom: 6px;
+}
+
+.cal-cell.sun {
+    color: #e0433a;
+}
+
+.cal-cell.sat {
+    color: #3d5bdb;
+}
+
+.cal-cell.empty {
+    color: transparent;
+}
+
+.cal-cell.wedday em {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: #fff;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.dday {
+    margin-top: 30px;
+}
+
+.dday-num {
+    display: inline-block;
+    font-family: var(--font-eng);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.dday-text {
+    display: block;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+}
+
 /* Gallery Section */
 .gallery-grid {
     display: flex;
@@ -255,6 +339,34 @@ h3 {
 /* Couple photos are marked .wide to span full width */
 .gallery-item.wide {
     flex-basis: 100%;
+}
+
+/* Gallery "더보기": hide overflow photos until expanded */
+.gallery-item.more-hidden {
+    display: none;
+}
+
+.gallery-grid.expanded .more-hidden {
+    display: block;
+}
+
+.btn-gallery-more {
+    display: inline-block;
+    margin-top: 26px;
+    padding: 12px 44px;
+    border: 1px solid var(--accent-color);
+    background: #fff;
+    color: var(--accent-color);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.btn-gallery-more:hover {
+    background: var(--accent-color);
+    color: #fff;
 }
 
 /* Location Section */
@@ -301,18 +413,122 @@ h3 {
     font-family: var(--font-sans);
 }
 
+/* Transportation Guide */
+.transport-info {
+    margin-top: 36px;
+    text-align: left;
+}
+
+.transport-item {
+    display: flex;
+    gap: 14px;
+    padding: 20px 2px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.transport-item:last-child {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.transport-icon {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+}
+
+.transport-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.transport-detail {
+    flex: 1;
+    min-width: 0;
+}
+
+.transport-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.transport-detail p {
+    margin: 0 0 6px;
+    font-size: 0.92rem;
+    color: #555;
+    line-height: 1.55;
+    font-family: var(--font-sans);
+}
+
+.transport-detail p:last-child {
+    margin-bottom: 0;
+}
+
+.transport-sub {
+    margin-top: 8px !important;
+    font-size: 0.82rem !important;
+    color: #aaa !important;
+}
+
+.bus-badge {
+    display: inline-block;
+    min-width: 44px;
+    padding: 1px 7px;
+    margin-right: 8px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #fff;
+    text-align: center;
+    font-family: var(--font-sans);
+    vertical-align: middle;
+}
+
+.bus-badge.green {
+    background: #33a23d;
+}
+
+.bus-badge.blue {
+    background: #3d5bdb;
+}
+
+.bus-badge.red {
+    background: #e0433a;
+}
+
 /* Contact Section */
+.contact-guide {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+.accordion-wrap {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
 .accordion {
     background-color: #fafafa;
     color: #444;
     cursor: pointer;
-    padding: 18px;
+    padding: 16px 18px;
     width: 100%;
     border: none;
     text-align: left;
     outline: none;
     font-size: 1rem;
-    transition: 0.4s;
+    transition: background 0.3s;
     font-family: var(--font-kor);
     border-radius: 8px;
     margin-bottom: 10px;
@@ -325,10 +541,11 @@ h3 {
 
 .accordion:after {
     content: '\002B';
-    color: #777;
+    color: #999;
     font-weight: bold;
     float: right;
     margin-left: 5px;
+    transition: transform 0.3s;
 }
 
 .active:after {
@@ -336,18 +553,15 @@ h3 {
 }
 
 .panel {
-    padding: 0 18px;
-    background-color: white;
+    background-color: #fff;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
     margin-bottom: 10px;
 }
 
 .account-group {
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.account-group:last-child {
-    border-bottom: none;
+    padding: 6px 18px 20px;
 }
 
 .label {
@@ -443,30 +657,37 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
-    color: #333;
-    font-size: 24px;
-    background: rgba(255, 255, 255, 0.75);
+    width: 40px;
+    height: 40px;
+    color: #555;
+    background: rgba(255, 255, 255, 0.55);
     border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
     z-index: 10001;
-    transition: background 0.3s;
+    transition: background 0.3s, color 0.3s;
+}
+
+.lb-nav svg {
+    width: 22px;
+    height: 22px;
 }
 
 .lb-prev {
-    left: 12px;
+    left: 14px;
 }
 
 .lb-next {
-    right: 12px;
+    right: 14px;
 }
 
 .lb-nav:hover {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--accent-color);
 }
 
 .lb-counter {

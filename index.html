@@ -19,8 +19,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pretendard:wght@300;400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
         rel="stylesheet">
+    <!-- Pretendard is not hosted on Google Fonts; load it from its own CDN -->
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
 
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
@@ -94,6 +97,64 @@
             </div>
         </section>
 
+        <!-- Calendar / D-Day -->
+        <section id="calendar" class="section calendar-section">
+            <div class="container fade-in-up">
+                <h2 class="section-title">예식일<br><span style="font-size:0.6em; color:#ccc;">The Wedding Day</span>
+                </h2>
+                <p class="cal-date">2026. 09. 06.</p>
+                <p class="cal-time">일요일 오후 2시</p>
+                <div class="calendar">
+                    <span class="cal-cell cal-dow sun">일</span>
+                    <span class="cal-cell cal-dow">월</span>
+                    <span class="cal-cell cal-dow">화</span>
+                    <span class="cal-cell cal-dow">수</span>
+                    <span class="cal-cell cal-dow">목</span>
+                    <span class="cal-cell cal-dow">금</span>
+                    <span class="cal-cell cal-dow sat">토</span>
+                    <span class="cal-cell empty"></span>
+                    <span class="cal-cell empty"></span>
+                    <span class="cal-cell">1</span>
+                    <span class="cal-cell">2</span>
+                    <span class="cal-cell">3</span>
+                    <span class="cal-cell">4</span>
+                    <span class="cal-cell sat">5</span>
+                    <span class="cal-cell wedday"><em>6</em></span>
+                    <span class="cal-cell">7</span>
+                    <span class="cal-cell">8</span>
+                    <span class="cal-cell">9</span>
+                    <span class="cal-cell">10</span>
+                    <span class="cal-cell">11</span>
+                    <span class="cal-cell sat">12</span>
+                    <span class="cal-cell sun">13</span>
+                    <span class="cal-cell">14</span>
+                    <span class="cal-cell">15</span>
+                    <span class="cal-cell">16</span>
+                    <span class="cal-cell">17</span>
+                    <span class="cal-cell">18</span>
+                    <span class="cal-cell sat">19</span>
+                    <span class="cal-cell sun">20</span>
+                    <span class="cal-cell">21</span>
+                    <span class="cal-cell">22</span>
+                    <span class="cal-cell">23</span>
+                    <span class="cal-cell">24</span>
+                    <span class="cal-cell">25</span>
+                    <span class="cal-cell sat">26</span>
+                    <span class="cal-cell sun">27</span>
+                    <span class="cal-cell">28</span>
+                    <span class="cal-cell">29</span>
+                    <span class="cal-cell">30</span>
+                    <span class="cal-cell empty"></span>
+                    <span class="cal-cell empty"></span>
+                    <span class="cal-cell empty"></span>
+                </div>
+                <div class="dday">
+                    <span class="dday-num" id="dday-num"></span>
+                    <span class="dday-text" id="dday-text"></span>
+                </div>
+            </div>
+        </section>
+
         <!-- Location -->
         <section id="location" class="section location-section">
             <div class="container fade-in-up">
@@ -109,6 +170,64 @@
                 <div class="map-buttons">
                     <a href="https://map.kakao.com/link/search/더화이트베일" target="_blank" class="btn-map kakao">카카오맵</a>
                     <a href="https://map.naver.com/p/search/더화이트베일" target="_blank" class="btn-map naver">네이버지도</a>
+                </div>
+
+                <!-- Transportation Guide -->
+                <div class="transport-info">
+                    <div class="transport-item">
+                        <span class="transport-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M8 18V6h4.5a3.2 3.2 0 0 1 0 6.4H8" fill="none" stroke="currentColor"
+                                    stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </span>
+                        <div class="transport-detail">
+                            <span class="transport-label">주차 안내</span>
+                            <p>맞은편 전용 주차장(주차타워) 이용</p>
+                            <p class="transport-sub">서초동 1426-5 · 서초구 서초중앙로2길 10</p>
+                        </div>
+                    </div>
+
+                    <div class="transport-item">
+                        <span class="transport-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="5" y="4" width="14" height="13" rx="2" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" />
+                                <path d="M5 12h14" stroke="currentColor" stroke-width="1.5" />
+                                <path d="M8 17v2M16 17v2" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" />
+                                <circle cx="8.5" cy="14.4" r="0.9" fill="currentColor" />
+                                <circle cx="15.5" cy="14.4" r="0.9" fill="currentColor" />
+                            </svg>
+                        </span>
+                        <div class="transport-detail">
+                            <span class="transport-label">버스</span>
+                            <p><span class="bus-badge green">4319</span>사당 · 남부터미널 · 잠실</p>
+                            <p><span class="bus-badge blue">461</span>장지동 · 남부터미널 · 여의도</p>
+                            <p><span class="bus-badge blue">641</span>문래동 · 남부터미널 · 양재동</p>
+                            <p><span class="bus-badge red">5300</span>수원 · 남부터미널 · 강남역</p>
+                            <p><span class="bus-badge red">8501</span>수원대 · 남부터미널 · 양재꽃시장</p>
+                            <p class="transport-sub">지선(초록) · 간선(파랑) · 직행/공항(빨강)</p>
+                        </div>
+                    </div>
+
+                    <div class="transport-item">
+                        <span class="transport-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="6" y="4" width="12" height="13" rx="3" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" />
+                                <path d="M6.5 12h11" stroke="currentColor" stroke-width="1.5" />
+                                <path d="M9 20l-1.5 2M15 20l1.5 2" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" />
+                                <circle cx="9" cy="14.5" r="0.9" fill="currentColor" />
+                                <circle cx="15" cy="14.5" r="0.9" fill="currentColor" />
+                            </svg>
+                        </span>
+                        <div class="transport-detail">
+                            <span class="transport-label">지하철</span>
+                            <p>3호선 남부터미널역 하차<br>4번 출구에서 도보 2분</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -135,77 +254,85 @@
                     </div>
                     <div class="gallery-item fade-in-up"><img src="assets/images/07.jpg" alt="Gallery 8" loading="lazy">
                     </div>
-                    <div class="gallery-item wide fade-in-up"><img src="assets/images/09.jpg" alt="Gallery 9" loading="lazy">
+                    <div class="gallery-item wide fade-in-up more-hidden"><img src="assets/images/09.jpg" alt="Gallery 9" loading="lazy">
                     </div>
-                    <div class="gallery-item fade-in-up"><img src="assets/images/20.jpg" alt="Gallery 10" loading="lazy">
+                    <div class="gallery-item fade-in-up more-hidden"><img src="assets/images/20.jpg" alt="Gallery 10" loading="lazy">
                     </div>
-                    <div class="gallery-item fade-in-up"><img src="assets/images/21.jpg" alt="Gallery 11" loading="lazy">
+                    <div class="gallery-item fade-in-up more-hidden"><img src="assets/images/21.jpg" alt="Gallery 11" loading="lazy">
                     </div>
-                    <div class="gallery-item fade-in-up"><img src="assets/images/22.jpg" alt="Gallery 12" loading="lazy">
+                    <div class="gallery-item fade-in-up more-hidden"><img src="assets/images/22.jpg" alt="Gallery 12" loading="lazy">
                     </div>
-                    <div class="gallery-item fade-in-up"><img src="assets/images/23.jpg" alt="Gallery 13" loading="lazy">
+                    <div class="gallery-item fade-in-up more-hidden"><img src="assets/images/23.jpg" alt="Gallery 13" loading="lazy">
                     </div>
-                    <div class="gallery-item wide fade-in-up"><img src="assets/images/24.jpg" alt="Gallery 14" loading="lazy">
+                    <div class="gallery-item wide fade-in-up more-hidden"><img src="assets/images/24.jpg" alt="Gallery 14" loading="lazy">
                     </div>
-                    <div class="gallery-item fade-in-up"><img src="assets/images/29.jpg" alt="Gallery 15" loading="lazy">
+                    <div class="gallery-item fade-in-up more-hidden"><img src="assets/images/29.jpg" alt="Gallery 15" loading="lazy">
                     </div>
-                    <div class="gallery-item fade-in-up"><img src="assets/images/30.jpg" alt="Gallery 16" loading="lazy">
+                    <div class="gallery-item fade-in-up more-hidden"><img src="assets/images/30.jpg" alt="Gallery 16" loading="lazy">
                     </div>
                 </div>
+                <button id="gallery-more" class="btn-gallery-more fade-in-up" type="button">사진 더보기 (+8)</button>
             </div>
         </section>
 
         <!-- Account / Contact (Accordion) -->
         <section id="contact" class="section contact-section">
             <div class="container fade-in-up">
-                <h2 class="section-title">마음 전하실 곳</h2>
-                <div class="panel">
-                    <div class="account-group">
-                        <p class="label">신랑측</p>
-                        <div class="account-row">
-                            <div class="account-text">
-                                <span class="account-name">신랑 · 김영빈</span>
-                                <span class="account-bank">카카오뱅크 3333-18-8077047</span>
+                <h2 class="section-title">마음 전하실 곳<br><span style="font-size:0.6em; color:#ccc;">Gift</span></h2>
+                <p class="contact-guide">축하의 마음을 전하고 싶으신 분들을 위해<br>계좌번호를 안내드립니다.</p>
+
+                <div class="accordion-wrap">
+                    <button class="accordion" type="button">신랑측 계좌번호</button>
+                    <div class="panel">
+                        <div class="account-group">
+                            <div class="account-row">
+                                <div class="account-text">
+                                    <span class="account-name">신랑 · 김영빈</span>
+                                    <span class="account-bank">카카오뱅크 3333-18-8077047</span>
+                                </div>
+                                <button class="btn-copy" data-copy="3333-18-8077047">복사</button>
                             </div>
-                            <button class="btn-copy" data-copy="3333-18-8077047">복사</button>
-                        </div>
-                        <div class="account-row">
-                            <div class="account-text">
-                                <span class="account-name">아버지 · 김태인</span>
-                                <span class="account-bank">농협 351-0889-6955-03</span>
+                            <div class="account-row">
+                                <div class="account-text">
+                                    <span class="account-name">아버지 · 김태인</span>
+                                    <span class="account-bank">농협 351-0889-6955-03</span>
+                                </div>
+                                <button class="btn-copy" data-copy="351-0889-6955-03">복사</button>
                             </div>
-                            <button class="btn-copy" data-copy="351-0889-6955-03">복사</button>
-                        </div>
-                        <div class="account-row">
-                            <div class="account-text">
-                                <span class="account-name">어머니 · 박영희</span>
-                                <span class="account-bank">농협 351-0030-6446-13</span>
+                            <div class="account-row">
+                                <div class="account-text">
+                                    <span class="account-name">어머니 · 박영희</span>
+                                    <span class="account-bank">농협 351-0030-6446-13</span>
+                                </div>
+                                <button class="btn-copy" data-copy="351-0030-6446-13">복사</button>
                             </div>
-                            <button class="btn-copy" data-copy="351-0030-6446-13">복사</button>
                         </div>
                     </div>
-                    <div class="account-group">
-                        <p class="label">신부측</p>
-                        <div class="account-row">
-                            <div class="account-text">
-                                <span class="account-name">신부 · 김도연</span>
-                                <span class="account-bank">하나은행 112-910235-61007</span>
+
+                    <button class="accordion" type="button">신부측 계좌번호</button>
+                    <div class="panel">
+                        <div class="account-group">
+                            <div class="account-row">
+                                <div class="account-text">
+                                    <span class="account-name">신부 · 김도연</span>
+                                    <span class="account-bank">하나은행 112-910235-61007</span>
+                                </div>
+                                <button class="btn-copy" data-copy="112-910235-61007">복사</button>
                             </div>
-                            <button class="btn-copy" data-copy="112-910235-61007">복사</button>
-                        </div>
-                        <div class="account-row">
-                            <div class="account-text">
-                                <span class="account-name">아버지 · 김동규</span>
-                                <span class="account-bank">토스뱅크 1002-6048-6293</span>
+                            <div class="account-row">
+                                <div class="account-text">
+                                    <span class="account-name">아버지 · 김동규</span>
+                                    <span class="account-bank">토스뱅크 1002-6048-6293</span>
+                                </div>
+                                <button class="btn-copy" data-copy="1002-6048-6293">복사</button>
                             </div>
-                            <button class="btn-copy" data-copy="1002-6048-6293">복사</button>
-                        </div>
-                        <div class="account-row">
-                            <div class="account-text">
-                                <span class="account-name">어머니 · 진예</span>
-                                <span class="account-bank">농협 21705352072659</span>
+                            <div class="account-row">
+                                <div class="account-text">
+                                    <span class="account-name">어머니 · 진예</span>
+                                    <span class="account-bank">농협 21705352072659</span>
+                                </div>
+                                <button class="btn-copy" data-copy="21705352072659">복사</button>
                             </div>
-                            <button class="btn-copy" data-copy="21705352072659">복사</button>
                         </div>
                     </div>
                 </div>
@@ -229,9 +356,19 @@
     <!-- Lightbox Modal -->
     <div id="lightbox" class="lightbox">
         <span class="lb-counter" id="lb-counter"></span>
-        <span class="lb-nav lb-prev" aria-label="이전 사진">&#10094;</span>
+        <span class="lb-nav lb-prev" role="button" tabindex="0" aria-label="이전 사진">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </span>
         <img class="lightbox-content" id="lightbox-img">
-        <span class="lb-nav lb-next" aria-label="다음 사진">&#10095;</span>
+        <span class="lb-nav lb-next" role="button" tabindex="0" aria-label="다음 사진">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </span>
     </div>
 
     <!-- Kakao SDK (share) -->

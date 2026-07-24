@@ -202,6 +202,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 5.1 D-Day counter (wedding: 2026-09-06)
+    const ddayNum = document.getElementById('dday-num');
+    const ddayText = document.getElementById('dday-text');
+    if (ddayNum && ddayText) {
+        const wedding = new Date(2026, 8, 6); // month is 0-indexed → 8 = September
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const diff = Math.round((wedding - today) / 86400000);
+        if (diff > 0) {
+            ddayNum.textContent = 'D-' + diff;
+            ddayText.textContent = '영빈 ♥ 도연의 결혼식이 ' + diff + '일 남았습니다.';
+        } else if (diff === 0) {
+            ddayNum.textContent = 'D-DAY';
+            ddayText.textContent = '오늘은 영빈 ♥ 도연의 결혼식 날입니다.';
+        } else {
+            ddayNum.textContent = 'D+' + Math.abs(diff);
+            ddayText.textContent = '영빈 ♥ 도연이 부부가 된 지 ' + Math.abs(diff) + '일이 되었습니다.';
+        }
+    }
+
+    // 5.2 Account accordions (expand/collapse)
+    document.querySelectorAll('.accordion').forEach((btn) => {
+        btn.addEventListener('click', function () {
+            this.classList.toggle('active');
+            const panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // 5.3 Gallery "더보기" (reveal hidden photos)
+    const galleryMoreBtn = document.getElementById('gallery-more');
+    const galleryGrid = document.querySelector('.gallery-grid');
+    if (galleryMoreBtn && galleryGrid) {
+        galleryMoreBtn.addEventListener('click', () => {
+            galleryGrid.classList.add('expanded');
+            galleryGrid.querySelectorAll('.more-hidden').forEach((el) => el.classList.add('visible'));
+            galleryMoreBtn.style.display = 'none';
+        });
+    }
+
     // 6. Background music toggle
     const bgm = document.getElementById('bgm');
     const musicBtn = document.getElementById('music-toggle');
