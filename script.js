@@ -16,22 +16,49 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
 
 
-    // 2. Lightbox Gallery (prev/next + swipe + keyboard navigation)
+    // 2. Lightbox Gallery (natural swipe carousel + arrows + keyboard)
     const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById("lightbox-img");
+    const track = document.getElementById('lb-track');
     const prevBtn = document.querySelector('.lb-prev');
     const nextBtn = document.querySelector('.lb-next');
     const counter = document.getElementById('lb-counter');
 
     const galleryImgs = Array.from(document.querySelectorAll('.gallery-item img'));
+    const lastIndex = galleryImgs.length - 1;
     let currentIndex = 0;
+    let slidesBuilt = false;
 
-    function showImage(index) {
-        // Wrap around at both ends
-        currentIndex = (index + galleryImgs.length) % galleryImgs.length;
-        lightboxImg.src = galleryImgs[currentIndex].src;
+    // Build the sliding track once: every photo becomes a horizontal slide
+    function buildSlides() {
+        if (slidesBuilt || !track) return;
+        galleryImgs.forEach((img) => {
+            const slide = document.createElement('div');
+            slide.className = 'lb-slide';
+            const full = document.createElement('img');
+            full.src = img.src;
+            full.alt = img.alt || '';
+            full.draggable = false;
+            slide.appendChild(full);
+            track.appendChild(slide);
+        });
+        slidesBuilt = true;
+    }
+
+    function vw() { return lightbox.clientWidth; }
+
+    function setTrack(offsetPx, animate) {
+        track.style.transition = animate ? 'transform 0.3s ease' : 'none';
+        track.style.transform = 'translate3d(' + (-currentIndex * vw() + offsetPx) + 'px, 0, 0)';
+    }
+
+    function updateCounter() {
         if (counter) counter.textContent = (currentIndex + 1) + ' / ' + galleryImgs.length;
-        lightbox.scrollTop = 0;
+    }
+
+    function goTo(index, animate) {
+        currentIndex = Math.max(0, Math.min(index, lastIndex));
+        setTrack(0, animate);
+        updateCounter();
     }
 
     // Pushing a history entry lets the mobile back button close the lightbox
@@ -39,9 +66,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let lightboxHistoryActive = false;
 
     function openLightbox(index) {
-        showImage(index);
+        buildSlides();
+        currentIndex = index;
         lightbox.classList.add('open');
         document.body.style.overflow = "hidden";
+        setTrack(0, false); // position instantly (reads width after display:block)
+        updateCounter();
         if (!lightboxHistoryActive) {
             history.pushState({ lightbox: true }, '');
             lightboxHistoryActive = true;
@@ -70,38 +100,83 @@ document.addEventListener('DOMContentLoaded', () => {
         img.addEventListener('click', () => openLightbox(i));
     });
 
-    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIndex - 1); });
-    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIndex + 1); });
-
-    // Close when tapping the backdrop (not the image or arrows)
-    lightbox.addEventListener('click', function (e) {
-        if (e.target === lightbox) closeLightbox();
-    });
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(currentIndex - 1, true); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(currentIndex + 1, true); });
 
     // Keyboard navigation (desktop)
     document.addEventListener('keydown', function (e) {
         if (!lightbox.classList.contains('open')) return;
-        if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
-        else if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+        if (e.key === 'ArrowLeft') goTo(currentIndex - 1, true);
+        else if (e.key === 'ArrowRight') goTo(currentIndex + 1, true);
         else if (e.key === 'Escape') closeLightbox();
     });
 
-    // Touch swipe navigation (mobile)
-    let touchStartX = 0;
-    let touchStartY = 0;
-    lightbox.addEventListener('touchstart', function (e) {
-        touchStartX = e.changedTouches[0].clientX;
-        touchStartY = e.changedTouches[0].clientY;
-    }, { passive: true });
-    lightbox.addEventListener('touchend', function (e) {
-        const dx = e.changedTouches[0].clientX - touchStartX;
-        const dy = e.changedTouches[0].clientY - touchStartY;
-        // Treat as a swipe only when the horizontal move dominates (lets tall photos scroll vertically)
-        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-            if (dx < 0) showImage(currentIndex + 1); // swipe left -> next
-            else showImage(currentIndex - 1);        // swipe right -> prev
+    // Drag / swipe: the photo follows the pointer, then snaps to the nearest slide
+    let dragging = false, moved = false, horizontal = null;
+    let startX = 0, startY = 0, deltaX = 0;
+
+    function onDown(e) {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.target.closest('.lb-nav')) return; // arrows handle their own clicks
+        dragging = true;
+        moved = false;
+        horizontal = null;
+        startX = e.clientX;
+        startY = e.clientY;
+        deltaX = 0;
+    }
+
+    function onMove(e) {
+        if (!dragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        // Lock the axis on the first meaningful movement
+        if (horizontal === null) {
+            if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+            horizontal = Math.abs(dx) >= Math.abs(dy);
         }
-    }, { passive: true });
+        if (!horizontal) return;
+        moved = true;
+        deltaX = dx;
+        // Add resistance when dragging past the first/last photo
+        if ((currentIndex === 0 && dx > 0) || (currentIndex === lastIndex && dx < 0)) {
+            deltaX = dx * 0.35;
+        }
+        setTrack(deltaX, false);
+    }
+
+    function onUp() {
+        if (!dragging) return;
+        dragging = false;
+        const threshold = Math.min(70, vw() * 0.16);
+        if (horizontal && deltaX <= -threshold) goTo(currentIndex + 1, true);
+        else if (horizontal && deltaX >= threshold) goTo(currentIndex - 1, true);
+        else setTrack(0, true); // not far enough -> spring back
+        deltaX = 0;
+        horizontal = null;
+        // Keep `moved` truthy through the click that follows a drag, then clear it
+        setTimeout(() => { moved = false; }, 0);
+    }
+
+    if (track) {
+        track.addEventListener('pointerdown', onDown);
+        window.addEventListener('pointermove', onMove);
+        window.addEventListener('pointerup', onUp);
+        window.addEventListener('pointercancel', onUp);
+    }
+
+    // Tap the backdrop (not the photo, not right after a drag) to close
+    lightbox.addEventListener('click', function (e) {
+        if (moved) return;
+        if (e.target.closest('.lb-nav')) return;
+        if (e.target.tagName === 'IMG') return;
+        closeLightbox();
+    });
+
+    // Keep the current slide aligned if the viewport size / orientation changes
+    window.addEventListener('resize', function () {
+        if (lightbox.classList.contains('open')) setTrack(0, false);
+    });
 
 
     // 3. Copy to Clipboard
