@@ -230,6 +230,70 @@ h3 {
     color: #222;
 }
 
+/* Contact (call / message) Section */
+.call-list {
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+.call-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 6px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.call-row:last-child {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.call-role {
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    color: #fff;
+    background: var(--accent-color);
+    border-radius: 12px;
+    padding: 3px 13px;
+    font-family: var(--font-sans);
+}
+
+.call-name {
+    flex: 1;
+    text-align: left;
+    font-size: 1.05rem;
+    color: #333;
+}
+
+.call-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.call-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    background: #fff;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+}
+
+.call-btn:hover {
+    background: var(--accent-color);
+    color: #fff;
+}
+
+.call-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
 /* Calendar / D-Day Section */
 .cal-date {
     font-family: var(--font-eng);
